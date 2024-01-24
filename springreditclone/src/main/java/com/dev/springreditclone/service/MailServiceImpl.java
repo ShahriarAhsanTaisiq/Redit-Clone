@@ -22,7 +22,7 @@ public class MailServiceImpl implements MailService{
 
     @Async
      public void sendMail(NotificationEmail notificationEmail) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
+        MimeMessagePreparator messagePreparatory = mimeMessage -> {
             MimeMessageHelper messageHelper =  new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom("taisiq@email.com");
             messageHelper.setTo(notificationEmail.getReceipt());
@@ -30,7 +30,7 @@ public class MailServiceImpl implements MailService{
             messageHelper.setText(mailContentBuilder.build(notificationEmail.getBody()));
         };
         try {
-            mailSender.send(messagePreparator);
+            mailSender.send(messagePreparatory);
             log.info("Activation email send!!");
         }catch (MailException e){
             log.error("Exception occurs when sending email.",e);
